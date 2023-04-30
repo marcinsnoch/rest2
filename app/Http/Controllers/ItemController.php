@@ -8,15 +8,21 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
 
-    public function index(Request $request)
+    public function showAllItems(Request $request)
     {
-        if ($request->get('number')) {
-            return Item::where('number', $request->get('number'))->firstOrFail();
-        }
         if ($request->get('last')) {
-            return Item::limit($request->get('last'))->latest()->get();
+            return response()->json(Item::with('tests')->limit($request->get('last'))->get());
         }
-        return Item::limit(1000)->get();
+        return response()->json(Item::with('tests.details')->get());
+    }
+
+    public function searchBySerialNumber($number)
+    {
+        return Item::with(['tests.details' => function ($q){
+                        $q->orderBy('created_at', 'DESC');
+                }])
+                ->where('serial_number', $number)
+                ->firstOrFail();
     }
 
     public function store(Request $request)

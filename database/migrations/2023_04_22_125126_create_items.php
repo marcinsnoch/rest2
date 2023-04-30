@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('number')->unique();
-            $table->string('param1');
-            $table->string('param2');
-            $table->string('param3');
-            $table->boolean('state');
-            $table->timestamps();
+            $table->string('serial_number', 50)->unique();
+            $table->index('serial_number');
+            $table->string('product_number');
+            $table->dateTime('created_at', $precision=0)->nullable()->useCurrent();
         });
     }
 

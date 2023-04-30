@@ -14,12 +14,15 @@
 */
 
 $router->get('/', function () use ($router) {
-    return time();
+    return 'It works!';
 });
 
-$router->get('/framework', function () use ($router) {
+$router->get('/version', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('items', 'ItemController@index');
-$router->post('items', 'ItemController@store');
+$router->group(['prefix' => 'api/'], function () use ($router) {
+//    $router->post('items', 'ItemController@store');
+    $router->get('items/{number}', 'ItemController@searchBySerialNumber');
+    $router->get('items', 'ItemController@showAllItems');
+});

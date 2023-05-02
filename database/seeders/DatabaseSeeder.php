@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ItemsSeeder::class,
             TestsSeeder::class,
-            TestsDetailsSeeder::class,
         ]);
     }
 }

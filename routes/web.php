@@ -13,7 +13,7 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+$router->get('/', function () {
     return 'It works!';
 });
 
@@ -22,7 +22,6 @@ $router->get('/version', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api/'], function () use ($router) {
-//    $router->post('items', 'ItemController@store');
     $router->get('items/{number}', 'ItemController@searchBySerialNumber');
     $router->get('items', 'ItemController@showAllItems');
 });

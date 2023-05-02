@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id');
-            $table->string('test_rig_name');
+            $table->string('name');
             $table->boolean('error');
             $table->string('description', 100);
             $table->boolean('outcome');
-            $table->timestamps();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->foreign('item_id')->references('id')->on('items');
         });
     }

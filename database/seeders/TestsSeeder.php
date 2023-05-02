@@ -14,17 +14,23 @@ class TestsSeeder extends Seeder
      */
     public function run(): void
     {
+        $x=1;
         for ($i=1; $i<=500; $i++) {
-            $now = Carbon::now()->addSeconds($i);
+            $now = Carbon::now()->subDays(29)->addSecond($i+600);
+            if ($x > 5) {
+                $x = 1;
+            }
             DB::table('tests')->insert([
                 'item_id' => random_int(1, 100),
-                'test_rig_name' => random_int(1, 5) . "A",
+//                'test_rig_name' => random_int(1, 5) . "A",
+                'name' => 'Step: ' . $x,
                 'error' => random_int(1, 5),
-                'description' => 'desc.' . Str::random(),
+                'description' => 'desc. ' . Str::random(10),
                 'outcome' => random_int(0, 1),
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
+            $x++;
         }
     }
 }
